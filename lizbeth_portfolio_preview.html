@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lizbeth Gonzalez Rosas — Portfolio</title>
+  <style>
+/* ===========================
+   VARIABLES & RESET
+=========================== */
+:root {
+  --teal: #0d9488;
+  --teal-light: #99f6e4;
+  --teal-dark: #0f766e;
+  --teal-pale: #f0fdfa;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-600: #475569;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--gray-800);
+  background: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ===========================
+   TYPOGRAPHY
+=========================== */
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--gray-900);
+  margin-bottom: 1.5rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--teal-dark);
+}
+
+/* ===========================
+   LAYOUT
+=========================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 6rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* ===========================
+   NAV
+=========================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.nav.scrolled {
+  border-bottom-color: var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--teal-dark);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--gray-600);
+  letter-spacing: 0.02em;
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--teal);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover { color: var(--teal-dark); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gray-800);
+  transition: var(--transition);
+}
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 2.5rem 4rem;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.hero-bg-line {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--teal-pale) 0%, rgba(240,253,250,0) 70%);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.hero-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.7s ease 0.1s forwards;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--gray-900);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--teal-dark);
+}
+
+.hero-tagline {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--gray-600);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.7s ease 0.35s forwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.7s ease 0.5s forwards;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 3px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: white;
+  border: 1.5px solid var(--teal);
+}
+
+.btn-primary:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13,148,136,0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--teal-dark);
+  border: 1.5px solid var(--teal);
+}
+
+.btn-outline:hover {
+  background: var(--teal-pale);
+  transform: translateY(-2px);
+}
+
+/* Hero decorations */
+.hero-decoration { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); z-index: 1; }
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid var(--teal-light);
+}
+.deco-1 { width: 320px; height: 320px; top: -160px; right: -40px; opacity: 0.5; }
+.deco-2 { width: 200px; height: 200px; top: -60px; right: 80px; opacity: 0.3; }
+.deco-line {
+  position: absolute;
+  width: 2px;
+  height: 120px;
+  background: linear-gradient(to bottom, var(--teal), transparent);
+  right: 180px;
+  top: -160px;
+  opacity: 0.4;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.8s forwards;
+}
+
+.scroll-hint span {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--teal-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--teal);
+  animation: scanRight 1.8s ease 1s infinite;
+}
+
+/* ===========================
+   ABOUT
+=========================== */
+.about {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-text p {
+  color: var(--gray-600);
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.about-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.stat { text-align: center; }
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.about-card-accent {
+  height: 4px;
+  background: linear-gradient(to right, var(--teal), var(--teal-light));
+}
+
+.about-card-content { padding: 2rem; }
+
+.edu-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.edu-icon { font-size: 1.5rem; margin-top: 2px; }
+
+.edu-item strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  margin-bottom: 0.25rem;
+}
+
+.edu-item p {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.edu-sub { color: var(--teal) !important; font-weight: 500; }
+
+.divider {
+  height: 1px;
+  background: var(--gray-100);
+  margin: 1.5rem 0;
+}
+
+/* ===========================
+   EXPERIENCE / TIMELINE
+=========================== */
+.experience { background: var(--white); }
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(to bottom, var(--teal), var(--teal-light), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -2rem;
+  top: 1.25rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--teal);
+  box-shadow: 0 0 0 4px var(--teal-pale);
+  transition: transform var(--transition);
+}
+
+.timeline-item:hover .timeline-marker {
+  transform: scale(1.3);
+  background: var(--teal);
+}
+
+.timeline-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 1.75rem;
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.timeline-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--teal-light);
+  transform: translateX(4px);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-card h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.timeline-role {
+  font-size: 0.875rem;
+  color: var(--teal-dark);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.timeline-date {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  background: var(--gray-100);
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+
+.timeline-bullets {
+  padding-left: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-bullets li {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  padding-left: 0.75rem;
+}
+
+.timeline-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+  background: var(--teal-pale);
+  border: 1px solid var(--teal-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+/* ===========================
+   COMMUNITY SERVICE
+=========================== */
+.community {
+  background: var(--teal-pale);
+  border-top: 1px solid rgba(153,246,228,0.4);
+  border-bottom: 1px solid rgba(153,246,228,0.4);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.service-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(153,246,228,0.3);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.service-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.service-card h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.service-card p {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.service-date {
+  font-size: 0.75rem;
+  color: var(--teal);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* ===========================
+   SKILLS
+=========================== */
+.skills { background: var(--white); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.skill-group {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.skill-group-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.skill-name {
+  width: 70px;
+  font-size: 0.85rem;
+  color: var(--gray-700);
+}
+
+.skill-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--teal), var(--teal-light));
+  border-radius: 2px;
+  width: 0;
+  transition: width 1s ease 0.3s;
+}
+
+.skill-level {
+  font-size: 0.72rem;
+  color: var(--teal-dark);
+  font-weight: 500;
+  width: 40px;
+  text-align: right;
+}
+
+.credential-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.credential-item:last-child { margin-bottom: 0; }
+
+.cred-icon { font-size: 1.25rem; margin-top: 1px; }
+
+.credential-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--gray-900);
+  margin-bottom: 0.2rem;
+}
+
+.credential-item p {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+
+/* ===========================
+   CONTACT
+=========================== */
+.contact {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.contact .section-label { color: var(--teal-light); }
+.contact .section-title { color: var(--white); }
+.contact .section-title em { color: var(--teal-light); }
+
+.contact-inner { text-align: center; }
+
+.contact-sub {
+  font-size: 1rem;
+  color: var(--gray-400);
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  text-align: left;
+}
+
+.contact-card:hover {
+  background: rgba(13,148,136,0.15);
+  border-color: var(--teal);
+  transform: translateY(-3px);
+}
+
+.contact-card-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.contact-card strong {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 0.25rem;
+}
+
+.contact-card p {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer {
+  background: var(--gray-900);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  letter-spacing: 0.03em;
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanRight {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .service-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: white;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-md);
+  }
+  .nav-toggle { display: flex; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-links { grid-template-columns: 1fr; }
+  .about-stats { flex-direction: column; gap: 1rem; }
+  .timeline-header { flex-direction: column; }
+  .hero { padding: 7rem 1.5rem 3rem; }
+  .section { padding: 4rem 0; }
+  .hero-decoration { display: none; }
+}
+
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">LGR</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-line"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hello, I'm</p>
+      <h1 class="hero-name">Lizbeth<br /><em>Gonzalez Rosas</em></h1>
+      <p class="hero-tagline">Marketing Student · Bilingual Communicator · Healthcare Explorer</p>
+      <div class="hero-cta">
+        <a href="#about" class="btn btn-primary">Learn More</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-decoration">
+      <div class="deco-circle deco-1"></div>
+      <div class="deco-circle deco-2"></div>
+      <div class="deco-line"></div>
+    </div>
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="container about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Driven by curiosity,<br /><em>rooted in community.</em></h2>
+        <p>I'm a Marketing student at Rutgers Business School with a passion for connecting people through language, service, and creative problem-solving. Raised in New Brunswick, NJ, I've spent years bridging gaps — whether translating for Spanish-speaking library patrons, documenting healthcare experiences, or giving back through community service.</p>
+        <p>I thrive at the intersection of healthcare, communication, and design — and I'm just getting started.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">3.85</span>
+            <span class="stat-label">High School GPA</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Hospital Shadowing Hours</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Patrons Helped Weekly</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-card-accent"></div>
+          <div class="about-card-content">
+            <div class="edu-item">
+              <span class="edu-icon">🎓</span>
+              <div>
+                <strong>Rutgers Business School</strong>
+                <p>B.S. Marketing · Expected May 2029</p>
+                <p class="edu-sub">GPA: 3.3</p>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="edu-item">
+              <span class="edu-icon">🏫</span>
+              <div>
+                <strong>NB Health Science Technology HS</strong>
+                <p>High School Diploma · June 2025</p>
+                <p class="edu-sub">GPA: 3.85 · Honor Roll</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Experience</span>
+        <h2 class="section-title">Where I've <em>made an impact.</em></h2>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>New Brunswick Public Library</h3>
+                <p class="timeline-role">Pager</p>
+              </div>
+              <span class="timeline-date">Mar 2024 – Present</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Organized and categorized 100+ books, newspapers, and materials to maintain an orderly and accessible collection</li>
+              <li>Advised 20+ library patrons weekly by communicating in Spanish, improving accessibility for the Spanish-speaking community</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Bilingual Service</span>
+              <span class="tag">Organization</span>
+              <span class="tag">Community Access</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Robert Wood Johnson University Hospital</h3>
+                <p class="timeline-role">Career Shadowing Intern</p>
+              </div>
+              <span class="timeline-date">Sep 2023 – Dec 2024</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Completed 50+ hours exploring medical fields including nursing, social work, and community outreach</li>
+              <li>Shadowed a speech-language pathologist, documenting interactions with patients and presenting therapy insights to hospital staff and principal</li>
+              <li>Maintained a weekly reflective journal to track professional growth and observations</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Healthcare</span>
+              <span class="tag">Patient Care</span>
+              <span class="tag">Reflective Practice</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>ODASIS — College Placement Program</h3>
+                <p class="timeline-role">Participant</p>
+              </div>
+              <span class="timeline-date">Sep 2023 – May 2025</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Completed SAT prep through timed practice tests and material reviews</li>
+              <li>Delivered presentations on topics including anatomy lab findings</li>
+              <li>Enrolled in a college-level English Composition course while in high school</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Academic Prep</span>
+              <span class="tag">Public Speaking</span>
+              <span class="tag">College Readiness</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY SERVICE -->
+  <section class="section community" id="community">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Community Service</span>
+        <h2 class="section-title">Giving back to <em>New Brunswick.</em></h2>
+      </div>
+      <div class="service-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🌿</div>
+          <h4>Garden Cleanup</h4>
+          <p>Cleaned and maintained a hospital park alongside volunteers to support patient and community well-being.</p>
+          <span class="service-date">April 2022</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📚</div>
+          <h4>Library Volunteer</h4>
+          <p>Encouraged children's literacy by helping with reading programs and distributing materials for the summer reading series.</p>
+          <span class="service-date">June – Aug 2022</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🤝</div>
+          <h4>Community Days of Service</h4>
+          <p>Participated in multiple community cleanup projects and women's wellness events, preparing spaces and engaging participants.</p>
+          <span class="service-date">Sep 2020 & May 2024</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Skills & Credentials</span>
+        <h2 class="section-title">What I <em>bring to the table.</em></h2>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <h4 class="skill-group-title">Languages</h4>
+          <div class="skill-item">
+            <span class="skill-name">Spanish</span>
+            <div class="skill-bar"><div class="skill-fill" data-width="100"></div></div>
+            <span class="skill-level">Native</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">English</span>
+            <div class="skill-bar"><div class="skill-fill" data-width="100"></div></div>
+            <span class="skill-level">Native</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <h4 class="skill-group-title">Credentials</h4>
+          <div class="credential-item">
+            <span class="cred-icon">🎖️</span>
+            <div>
+              <strong>Seal of Biliteracy</strong>
+              <p>Proficiency in both English and Spanish</p>
+            </div>
+          </div>
+          <div class="credential-item">
+            <span class="cred-icon">💗</span>
+            <div>
+              <strong>CPR Certification</strong>
+              <p>First aid trained (expired)</p>
+            </div>
+          </div>
+          <div class="credential-item">
+            <span class="cred-icon">🏆</span>
+            <div>
+              <strong>Honor Roll</strong>
+              <p>Consistently since September 2021</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <h4 class="skill-group-title">Industry Exposure</h4>
+          <div class="credential-item">
+            <span class="cred-icon">🏥</span>
+            <div>
+              <strong>Healthcare Operations</strong>
+              <p>Nursing, social work, speech pathology, community outreach</p>
+            </div>
+          </div>
+          <div class="credential-item">
+            <span class="cred-icon">👗</span>
+            <div>
+              <strong>Fashion Industry Basics</strong>
+              <p>Mood boards, business fundamentals, and career insights from industry professionals</p>
+            </div>
+          </div>
+          <div class="credential-item">
+            <span class="cred-icon">📢</span>
+            <div>
+              <strong>Marketing & Communication</strong>
+              <p>B.S. Marketing at Rutgers Business School</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container contact-inner reveal">
+      <span class="section-label">Get in Touch</span>
+      <h2 class="section-title">Let's <em>connect.</em></h2>
+      <p class="contact-sub">I'm always open to new opportunities, collaborations, or simply a good conversation.</p>
+      <div class="contact-links">
+        <a href="mailto:lg966@scarletmail.rutgers.edu" class="contact-card">
+          <span class="contact-card-icon">✉️</span>
+          <div>
+            <strong>Email</strong>
+            <p>lg966@scarletmail.rutgers.edu</p>
+          </div>
+        </a>
+        <a href="tel:7322076537" class="contact-card">
+          <span class="contact-card-icon">📞</span>
+          <div>
+            <strong>Phone</strong>
+            <p>(732) 207-6537</p>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/lizbeth-gonzalez-rosas-580436385" target="_blank" class="contact-card">
+          <span class="contact-card-icon">🔗</span>
+          <div>
+            <strong>LinkedIn</strong>
+            <p>lizbeth-gonzalez-rosas</p>
+          </div>
+        </a>
+        <a href="#" class="contact-card">
+          <span class="contact-card-icon">📍</span>
+          <div>
+            <strong>Location</strong>
+            <p>New Brunswick, NJ 08901</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 Lizbeth Gonzalez Rosas · Built with care · New Brunswick, NJ</p>
+  </footer>
+
+  <script>
+// ===========================
+// NAV SCROLL BEHAVIOR
+// ===========================
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ===========================
+// MOBILE NAV TOGGLE
+// ===========================
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.querySelector('.nav-links');
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+// Close mobile nav on link click
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// ===========================
+// REVEAL ON SCROLL
+// ===========================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      // Stagger sibling reveals
+      const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+      const index = siblings.indexOf(entry.target);
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, index * 80);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===========================
+// SKILL BAR ANIMATION
+// ===========================
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        bar.style.width = width + '%';
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.skill-group').forEach(group => skillObserver.observe(group));
+
+// ===========================
+// SMOOTH ACTIVE NAV LINK
+// ===========================
+const sections = document.querySelectorAll('section[id]');
+const navLinkItems = document.querySelectorAll('.nav-links a');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinkItems.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(section => sectionObserver.observe(section));
+
+</script>
+</body>
+</html>
